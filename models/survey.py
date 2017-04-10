@@ -19,7 +19,6 @@ from odoo.addons.website.models.website import slug
 email_validator = re.compile(r"[^@]+@[^@]+\.[^@]+")
 _logger = logging.getLogger(__name__)
 
-
 def dict_keys_startswith(dictionary, string):
     """Returns a dictionary containing the elements of <dict> whose keys start with <string>.
         .. note::
