@@ -875,14 +875,14 @@ if records:
 		<menuitem name="Indicateurs" id="menu_survey_indicateurs"
 		 action="action_survey_indicators" parent="menu_surveys" sequence="5"/>
 
-		 <record model="ir.actions.act_window" id="action_survey_indicators">
+		 <record model="ir.actions.act_window" id="action_survey_indicators_dashboard">
 			<field name="name">Indicateurs</field>
 			<field name="res_model">survey.indicateur</field>
-			<field name="view_mode">kanban,form</field>
+			<field name="view_mode">kanban</field>
 		</record>
 
 		 <menuitem name="Indicateurs Dashboard" id="menu_survey_indicateurs_dashboard"
-		 action="action_survey_indicators" parent="menu_surveys" sequence="5"/>
+		 action="action_survey_indicators_dashboard" parent="menu_surveys" sequence="5"/>
 
 		 <record model="ir.actions.act_window" id="action_survey_agregation_levels">
 			<field name="name">Niveaux d Agregation</field>
