@@ -804,5 +804,28 @@ if records:
 		<menuitem name="Questions" id="menu_survey_question_form1" action="action_survey_question_form" parent="menu_surveys_configuration" sequence="2"/>
 		<menuitem name="Labels" id="menu_survey_label_form1" action="action_survey_label_form" parent="menu_surveys_configuration" sequence="3"/>
 		<menuitem name="User Input Lines" id="menu_survey_response_line_form" action="action_survey_user_input_line" parent="menu_surveys_configuration" sequence="4"/>
+
+		<!-- Evaluation Action and Menu Items -->	
+		<record model="ir.actions.act_window" id="action_survey_indicators">
+			<field name="name">Indicateurs</field>
+			<field name="res_model">survey.indicateur</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Indicateurs" id="menu_survey_indicateurs"
+		 action="action_survey_indicators" parent="menu_surveys" sequence="5"/>
+
+		 <record model="ir.actions.act_window" id="action_survey_agregation_levels">
+			<field name="name">Niveaux d Agregation</field>
+			<field name="res_model">survey.agregation_level</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Niveaux d Agregation" id="menu_survey_agregation_levels"
+		 action="action_survey_agregation_levels" parent="menu_surveys" sequence="6"/>
+
+
+
+
 	</data>
 </odoo>
