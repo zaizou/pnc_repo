@@ -47,6 +47,66 @@
 		</record>
 
 
+		<record id="indicateur_dashboard_kanban_view" model="ir.ui.view">
+        <field name="name">survey.indicateur.dashboard.kanban</field>
+        <field name="model">survey.indicateur</field>
+        <field name="arch" type="xml">
+            <kanban create="false" class="oe_background_grey o_kanban_dashboard o_account_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <!--
+                <field name="type"/>
+                <field name="show_on_dashboard"/>
+                <field name="kanban_dashboard"/>
+            -->
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(0)}">
+                            <!--<t t-value="JSON.parse(record.kanban_dashboard.raw_value)" t-set="dashboard"/>
+                            <t t-value="record.type.raw_value" t-set="journal_type"/>-->
+                            <t t-call="IndicateurTop"/>
+                            <div class="container o_kanban_card_content o_visible">
+                                <t  t-call="IndicateurBodyGraph"/>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane o_invisible">
+                                <t t-call="IndicateurManage"/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="IndicateurManage">
+                        
+                    </t>
+
+                    <t t-name="IndicateurTop">
+                        <div class="o_kanban_card_header">
+                            <div class="o_kanban_card_header_title">
+                                <div class="o_primary">
+                                    <a type="object" name="open_action"><field name="name"/></a>
+                                </div>
+                                <!--<div class="o_secondary" t-att-title="dashboard.title"> -->
+                                    <!--<field name="type"/>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="o_kanban_manage_button_section">
+                                <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="IndicateurBodyGraph">
+                        <div class="o_kanban_graph_section">
+                        	<!--
+                           <field name="kanban_dashboard_graph" t-att-graph_type="bar" widget="agregation_level_dashboard_graph"/>
+                       -->
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    	</record> 
+
+
 		<record id="agregation_level_dashboard_kanban_view" model="ir.ui.view">
         <field name="name">survey.agregation_level.dashboard.kanban</field>
         <field name="model">survey.agregation_level</field>
@@ -813,6 +873,15 @@ if records:
 		</record>
 
 		<menuitem name="Indicateurs" id="menu_survey_indicateurs"
+		 action="action_survey_indicators" parent="menu_surveys" sequence="5"/>
+
+		 <record model="ir.actions.act_window" id="action_survey_indicators">
+			<field name="name">Indicateurs</field>
+			<field name="res_model">survey.indicateur</field>
+			<field name="view_mode">kanban,form</field>
+		</record>
+
+		 <menuitem name="Indicateurs Dashboard" id="menu_survey_indicateurs_dashboard"
 		 action="action_survey_indicators" parent="menu_surveys" sequence="5"/>
 
 		 <record model="ir.actions.act_window" id="action_survey_agregation_levels">

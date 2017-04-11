@@ -1,4 +1,4 @@
-odoo.define('agregation_level_dashboard', function(require) {
+odoo.define('indicateur_dashboard', function(require) {
     'use strict';
 
     var kanban_widgets = require('web_kanban.widgets');
@@ -117,6 +117,6 @@ odoo.define('agregation_level_dashboard', function(require) {
     });
 
 
-    kanban_widgets.registry.add('agregation_level_dashboard_graph', AgregationLevelDashboardGraph);
+    kanban_widgets.registry.add('indicateur_dashboard_graph', AgregationLevelDashboardGraph);
 
 });
