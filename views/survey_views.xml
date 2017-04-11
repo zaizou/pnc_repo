@@ -56,14 +56,15 @@
                 <field name="name"/>
                 <!--
                 <field name="type"/>
+				-->
                 <field name="show_on_dashboard"/>
                 <field name="kanban_dashboard"/>
-            -->
+            
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="#{kanban_color(0)}">
-                            <!--<t t-value="JSON.parse(record.kanban_dashboard.raw_value)" t-set="dashboard"/>
-                            <t t-value="record.type.raw_value" t-set="journal_type"/>-->
+                            <t t-value="JSON.parse(record.kanban_dashboard.raw_value)" t-set="dashboard"/>
+                            <!--<t t-value="record.type.raw_value" t-set="journal_type"/>-->
                             <t t-call="IndicateurTop"/>
                             <div class="container o_kanban_card_content o_visible">
                                 <t  t-call="IndicateurBodyGraph"/>
@@ -96,10 +97,9 @@
 
                     <t t-name="IndicateurBodyGraph">
                         <div class="o_kanban_graph_section">
-                        	<!--
-                           <field name="kanban_dashboard_graph" t-att-graph_type="bar" widget="agregation_level_dashboard_graph"/>
-                       -->
+                           <field name="kanban_dashboard_graph" t-att-graph_type="bar" widget="indicateur_dashboard_graph"/>
                         </div>
+						
                     </t>
                 </templates>
             </kanban>

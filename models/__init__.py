@@ -3,3 +3,4 @@
 
 import survey
 import ir_autovacuum
+import indicateur_dashboard

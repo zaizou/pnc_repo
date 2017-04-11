@@ -1,11 +1,7 @@
 import json
-from datetime import datetime, timedelta
-
-from babel.dates import format_datetime, format_date
-
 from odoo import models, api, _, fields
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from odoo.tools.misc import formatLang
+
 
 class indicateur_dashboard(models.Model):
     _inherit = "survey.indicateur"
@@ -30,8 +26,8 @@ class indicateur_dashboard(models.Model):
     @api.multi
     def get_bar_graph_datas(self):
         data = []
-        today = datetime.strptime(fields.Date.context_today(self), DF)
-        data.append({'label': _('Past'), 'value':100.0, 'type': 'past'})
+        data.append({'value':100.0})
+        #data[0]['value'] =100
         return [{'values': data}]
 
     @api.multi
