@@ -26,11 +26,12 @@ class indicateur_dashboard(models.Model):
     @api.multi
     def get_bar_graph_datas(self):
         data = []
-        data.append({'value':100.0})
-        #data[0]['value'] =100
+        for ind in self:
+            ker=ind.valeur
+        data.append({'label': _('Past'), 'value':ker, 'type': 'past'})
+        
         return [{'values': data}]
 
-    @api.multi
+    @api.one
     def get_journal_dashboard_datas(self):
-        for indic in self:
-            return {'value':indic.valeur}
+            return {'title':'hello'}

@@ -5,42 +5,65 @@ odoo.define('indicateur_dashboard', function(require) {
 
     var AgregationLevelDashboardGraph = kanban_widgets.AbstractField.extend({
         start: function() {
+            alert("Test existance 01");
             this.graph_type = this.$node.attr('graph_type');
-            this.data = []; //JSON.parse(this.field.raw_value);
-            this.data.append({ 'value': 100.0 })
+            this.data = JSON.parse(this.field.raw_value);
+            //console.log(this.field.raw_value);
+            console.table(this.data);
+
+            //this.data.append({ 'value': 100.0 })
             this.display_graph();
             return this._super();
         },
 
         display_graph: function() {
+
             var self = this;
-            self.$svg = self.$el.append('<svg>');
+            //self.svg = d3.select(self.$el.find('svg')[0])
+            //self.svg = d3.select(this.$el).append('svg');
+            //self.$svg = self.$el.append('<svg>');
+            alert("vals " + self.data[0].values[0].value);
+            nv.addGraph(function() {
+                self.$svg = self.$el.append('<svg>');
+                self.chart = nv.models.gaugeChart()
+                    .min(0)
+                    .max(1000)
+                    .zoneLimit1(0.25)
+                    .zoneLimit2(0.50)
+                    .zoneLimit3(0.75)
+                    .zoneLimit4(1);
 
-            self.chart = nv.models.gaugeChart()
-                .min(0)
-                .max(1000)
-                .zoneLimit1(0.25)
-                .zoneLimit2(0.50)
-                .zoneLimit3(0.75)
-                .zoneLimit4(1);
+                //var legend_right = config.device.size_class > config.device.SIZES.XS;
+                //option//
+                self.chart.options({
+                    delay: 250,
+                    transition: 100,
+                    //showLegend: legend_right || _.size(dataSize) <= MAX_LEGEND_LENGTH,
+                    color: d3.scale.category10().range()
+                });
+                d3.select(self.$el.find('svg')[0])
+                    .datum([self.data[0].values[0].value])
+                    .transition().duration(1200)
+                    .call(self.chart);
 
-            //var legend_right = config.device.size_class > config.device.SIZES.XS;
-            //option//
-            self.chart.options({
-                delay: 250,
-                transition: 100,
-                //showLegend: legend_right || _.size(dataSize) <= MAX_LEGEND_LENGTH,
-                color: d3.scale.category10().range()
             });
-            //var svg = d3.select(this.$el[0]).append('svg');
-            self.svg.datum([this.data[0].value]);
-            self.svg.transition().duration(100);
-            self.chart(self.svg);
 
-            this.to_remove = chart.update;
-            nv.utils.onWindowResize(self.chart.update);
+
+
+            //var svg = d3.select(this.$el[0]).append('svg');
+            //self.svg.datum([100]);
+            //self.svg.transition().duration(100);
+            //self.chart(self.svg);
+            // self.svg.datum([100]).transition().duration(1200).call(self.chart);
+
+
+
+
+            //  this.to_remove = self.chart.update;
+            //nv.utils.onWindowResize(self.chart.update);
             //return chart;
-            nv.addGraph(self.chart);
+            //nv.addGraph(self.chart);
+            //return self.chart;
 
             /* var svg = d3.select(self.$el.find('svg')[0]);
              svg.datum(self.data)
@@ -55,7 +78,7 @@ odoo.define('indicateur_dashboard', function(require) {
 
         on_resize: function() {
             this.chart.update();
-            this.customize_chart();
+            //this.customize_chart();
         },
 
         customize_chart: function() {

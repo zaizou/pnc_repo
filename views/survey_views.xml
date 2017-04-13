@@ -97,7 +97,7 @@
 
                     <t t-name="IndicateurBodyGraph">
                         <div class="o_kanban_graph_section">
-                           <field name="kanban_dashboard_graph" t-att-graph_type="bar" widget="indicateur_dashboard_graph"/>
+                           <field name="kanban_dashboard_graph"  widget="indicateur_dashboard_graph"/>
                         </div>
 						
                     </t>
