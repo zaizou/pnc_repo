@@ -735,7 +735,7 @@ class SurveyQuestion(models.Model):
                         ), ('validation_date',
                         'CHECK (validation_min_date <= validation_max_date)'
                         , 'Max date cannot be smaller than min date!')]
-
+    
     def update_related_indicator(self, question_id):
         count = 0
         somme = 0
