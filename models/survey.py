@@ -563,6 +563,11 @@ class SurveyDataModel(models.Model):
     name=fields.Char('Model',required=True, translate=True)
     tag=fields.Char('Tag',required=True, translate=True)
 
+class FonctionCalcul(models.Model):
+    _inherit='ir.actions.server'
+    _name ='survey.fonction_calcul'
+
+
 class Indicateur(models.Model):
     _name = 'survey.indicateur'
     _description = 'PNC Indicateur'
