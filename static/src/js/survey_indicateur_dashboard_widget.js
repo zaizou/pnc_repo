@@ -21,7 +21,7 @@ odoo.define('indicateur_dashboard', function(require) {
             //self.svg = d3.select(self.$el.find('svg')[0])
             //self.svg = d3.select(this.$el).append('svg');
             //self.$svg = self.$el.append('<svg>');
-            alert("vals " + self.data[0].values[0].value);
+            //alert("vals " + self.data[0].values[0].value);
             nv.addGraph(function() {
                 self.$svg = self.$el.append('<svg>');
                 self.chart = nv.models.gaugeChart()
@@ -103,11 +103,3 @@ odoo.define('indicateur_dashboard', function(require) {
     kanban_widgets.registry.add('indicateur_dashboard_graph', AgregationLevelDashboardGraph);
 
 });
-
-
-
-
-
-
-
-
