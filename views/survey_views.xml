@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
 	<data>
+	<record model="ir.ui.view" id="fonction_calcul_form_view">
+			<field name="name">fonction_calcul.form</field>
+			<field name="model">survey.fonction_calcul</field>
+			<field name="arch" type="xml">
+				<form string="Calculation Function Form">
+                    <sheet>
+						<div class="oe_button_box" name="button_box">
+                            <field name="menu_ir_values_id" invisible="1"/>
+                            <button name="create_action" string="Add in the 'More' menu" type="object"
+                                    attrs="{'invisible':[('menu_ir_values_id','!=',False)]}"
+                                    help="Display an option on related documents to run this sever action"/>
+                            <button name="unlink_action" string="Remove from the 'More' menu" type="object" 
+                                    attrs="{'invisible':[('menu_ir_values_id','=',False)]}"
+                                    help="Remove the contextual action related to this server action"/>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Update order quantity"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" invisible="1"/>
+                                <field name="model_id"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="condition"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+
+
+
+                        <notebook colspan="4">
+                            <page string="Python Code" name="code" autofocus="autofocus">
+                                <field name="code" widget="ace" options="{'mode': 'python'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
+                            </page>
+
+
+                            <page string="Help">
+                                <group>
+                                    <div style="margin-top: 4px;">
+                                        <h3>Help with Python expressions.</h3>
+                                        <p>Various fields may use Python code or Python expressions. The following variables can be used:</p>
+                                        <ul>
+                                            <li>env: Odoo Environement on which the action is triggered</li>
+                                            <li>record: browse_record of the record on which the action is triggered</li>
+                                            <li>time, datetime, timezone: Python module</li>
+                                            <li>log(message, level='info'): a logging function to create ir_logging records</li>
+                                        </ul>
+                                        <div>
+                                            <p>Example of condition expression using Python</p>
+                                            <ul>
+                                                <li>condition: True</li>
+                                                <li>condition: record.list_price &gt; 5000</li>
+                                            </ul>
+                                        </div>
+                                        <div >
+                                            <p>Example of python code</p>
+												<code style="white-space: pre-wrap">
+													partner_name = record.name + '_code'
+													env["res.partner"].create({"name": partner_name})
+												</code>
+                                        </div>
+                                    </div>
+                                    <group>
+                                        <h3 colspan="2">Dynamic expression builder</h3>
+                                        <p colspan="2" >
+                                            Please set the Base Model of the action to enable the dynamic expression buidler.
+                                        </p>
+                                        <field name="model_object_field" />
+                                        <field name="sub_object" readonly="1" />
+                                        <field name="sub_model_object_field" />
+                                        <field name="copyvalue" />
+                                        <h3 colspan="2">Find the ID of a record in the database</h3>
+                                        <field name="id_object"/>
+                                        <field name="id_value"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+				</form>
+			</field>
+	</record>
 
 		<!-- Indicateurs-->
 	   <record model="ir.ui.view" id="indicateur_form_view">
@@ -29,6 +115,7 @@
 								</group>
 							</page>
 							<page string="Valeur">
+								<field name="fonction_calcul" />
 								<field name="valeur"/>
 							</page>
 						</notebook>

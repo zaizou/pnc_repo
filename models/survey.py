@@ -579,7 +579,7 @@ class Indicateur(models.Model):
     questions = fields.One2many('survey.question', 'indicateur_id',
                                 string='Questions', copy=True)
     agregation_level_id=fields.Many2one('survey.agregation_level',string='Niveau d Agregation ', ondelete='SET NULL')
-    fonction_calcul=fields.Integer('Fonction de Calcul', default=1)
+    fonction_calcul=fields.Many2one('survey.fonction_calcul',string='Fonction de Calcul', ondelete='SET NULL')
     poids=fields.Integer('Poids de l Indicateur', default=1)
     max_value=fields.Float("Valeur Max", default=0.0)
     min_value=fields.Float("Valeur Min", default=0.0)
@@ -745,12 +745,14 @@ class SurveyQuestion(models.Model):
         count = 0
         somme = 0
         questions = self.env['survey.question'].browse(question_id)
+        
         for question in questions:
-            for reponse in question.user_input_line_ids:
-                somme += reponse.value_number
-                count = count + 1
-            question.question_value = somme / count
-            question.indicateur_id.calcul_valeur_indicateur(question.indicateur_id)
+            question.indicateur_id.fonction_calcul.run()
+        #    for reponse in question.user_input_line_ids:
+        #        somme += reponse.value_number
+        #        count = count + 1
+        #    question.question_value = somme / count
+        
 
     @api.onchange('validation_email')
     def onchange_validation_email(self):
