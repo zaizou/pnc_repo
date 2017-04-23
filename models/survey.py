@@ -551,7 +551,7 @@ class SurveyPage(models.Model):
 
 class AgregationLevel(models.Model):
     _name = 'survey.agregation_level'
-    _description = 'Niveau d Agregationn loop d un indicatneur : Evaluation Subjective Action, Evaluation Objective Action, Action, Objectif, Axe '
+    _description = 'Niveau d Agregationn loopa d un indicatneur : Evaluation Subjective Action, Evaluation Objective Action, Action, Objectif, Axe '
     name=fields.Char('Niveau d Agregation',required=True, translate=True)
     agregation_level_parent_parent_id=fields.Many2one('survey.agregation_level',string='Niveau d Agregation Parent', ondelete='SET NULL')
     agregation_level_child_id=fields.Many2one('survey.agregation_level',string='Niveau Agregation Fils ', ondelete='SET NULL')
