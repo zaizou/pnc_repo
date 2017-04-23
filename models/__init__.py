@@ -4,3 +4,4 @@
 import survey
 import ir_autovacuum
 import indicateur_dashboard
+import agregation_level_dashboard
