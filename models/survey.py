@@ -572,28 +572,46 @@ class Indicateur(models.Model):
     _name = 'survey.indicateur'
     _description = 'PNC Indicateur'
     name = fields.Char('Indicateur Name', required=True, translate=True)
-
     valeur = fields.Float("Valeur Indicateur", default=0.0)
     parent_indicateur = fields.Many2one('survey.indicateur',
             string='Indicateur Parent', ondelete='SET NULL')
     questions = fields.One2many('survey.question', 'indicateur_id',
                                 string='Questions', copy=True)
     agregation_level_id=fields.Many2one('survey.agregation_level',string='Niveau d Agregation ', ondelete='SET NULL')
-    fonction_calcul=fields.Many2one('survey.fonction_calcul',string='Fonction de Calcul', ondelete='SET NULL')
+    fonction_calcul=fields.Many2one('ir.actions.server',string='Fonction de Calcul', ondelete='SET NULL')
     poids=fields.Integer('Poids de l Indicateur', default=1)
     max_value=fields.Float("Valeur Max", default=0.0)
     min_value=fields.Float("Valeur Min", default=0.0)
-
+    @api.multi
     def calcul_valeur_indicateur(self, id_indicateur):
     	count = 0
     	somme = 0
-    	for indic in id_indicateur:
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach 141414")
+        for indic in id_indicateur:
+            return indic.fonction_calcul()
+    	"""for indic in id_indicateur:
     		for question in indic.questions:
 				count= count + 1
 				somme = somme + question.question_value
-				indic.valeur = somme / count
+				indic.valeur = somme / count """
 				
 class SurveyQuestion(models.Model):
+    
+    """
+    action = {
+                "type": "ir.actions.act_window",
+                "view_mode": "form",
+                "res_model": object._name,
+                "res_id": object.id,
+            }
+    """
 
     """ Questions that will be asked in a survey.
 
@@ -740,19 +758,35 @@ class SurveyQuestion(models.Model):
                         ), ('validation_date',
                         'CHECK (validation_min_date <= validation_max_date)'
                         , 'Max date cannot be smaller than min date!')]
+
+
     
+        
+
+    @api.one
     def update_related_indicator(self, question_id):
-        count = 0
-        somme = 0
-        questions = self.env['survey.question'].browse(question_id)
         
-        for question in questions:
-            question.indicateur_id.fonction_calcul.run()
-        #    for reponse in question.user_input_line_ids:
-        #        somme += reponse.value_number
-        #        count = count + 1
-        #    question.question_value = somme / count
-        
+        #count = 0
+        #somme = 0
+        #questions = self.env['survey.question'].browse(question_id)
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        _logger.warning("testing the new approach")
+        #question_calculation()
+        #for question in questions:
+        _logger.warning("self.indicateur_id.id  == %s",self.indicateur_id.id)
+        _logger.warning("self.indicateur_id.fonction_calcul.id  == %s",self.indicateur_id.fonction_calcul.id)
+        return {
+                "type": "ir.actions.server",
+                "id": self.indicateur_id.fonction_calcul.id,
+                "context": {"active_id": self.indicateur_id.id, "active_model": "survey.indicateur"}
+        }
+    
 
     @api.onchange('validation_email')
     def onchange_validation_email(self):
@@ -1246,7 +1280,17 @@ class SurveyUserInputLine(models.Model):
                           )
             return False
         else:
+            _logger.warning("testing the new approach")
+            _logger.warning("question.indicateur_id.fonction_calcul.id %s",question.indicateur_id.fonction_calcul.id)
+            _logger.warning("question.indicateur_id.id %s",question.indicateur_id.id)
+            action= {
+            "type": "ir.actions.server",
+            "id": question.indicateur_id.fonction_calcul.id,
+            "context": {"active_id": question.indicateur_id.id, "active_model": "survey.indicateur"}
+            }
+            return action
             saver(user_input_id, question, post, answer_tag)
+            
 
     @api.model
     def save_line_free_text(
@@ -1335,11 +1379,22 @@ class SurveyUserInputLine(models.Model):
             old_uil.create(vals)
 
         # a = self.env['event.meeting'].browse([record.meeting_id.id]).my_method()
+        
+
+
 
         questions = self.env['survey.question'].browse(question.id)
+        i=0
         for quest in questions:
-            quest.update_related_indicator(quest.id)
-        return True
+            i=0
+        action= {
+            "type": "ir.actions.server",
+            "id": quest.indicateur_id.fonction_calcul.id,
+            "context": {"active_id": quest.indicateur_id.id, "active_model": "survey.indicateur"}
+        }
+            
+            #quest.update_related_indicator(quest.id)
+        #return True
 
     @api.model
     def save_line_datetime(
